@@ -4,3 +4,4 @@ dist
 *.gz
 .vscode
 .env
+coverage
