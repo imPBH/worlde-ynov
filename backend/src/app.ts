@@ -8,11 +8,13 @@ const game = new GameState();
 
 app.post('/new-game', (req, res) => {
   game.startNewGame();
-  if (process.env.NODE_ENV === 'test') {
-    res.json({ message: 'New game started', targetWord: game.getTargetWord() });
-  } else {
-    res.json({ message: 'New game started' });
-  }
+  console.log(`Target word is: ${game.getTargetWord()}`)
+  res.json({
+    message: 'New game started',
+    wordLength: game.getWordLength(),
+    attemptsLeft: game.getAttemptsLeft(),
+    targetWord: process.env.NODE_ENV === 'test' ? game.getTargetWord() : undefined
+  });
 });
 
 app.post('/guess', (req, res) => {
