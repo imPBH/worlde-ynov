@@ -8,7 +8,9 @@ const game = new GameState();
 
 app.post('/new-game', (req, res) => {
   game.startNewGame();
-  console.log(`Target word is: ${game.getTargetWord()}`)
+  if (process.env.NODE_ENV !== 'test') {
+    console.log(`Target word is: ${game.getTargetWord()}`)
+  }
   res.json({
     message: 'New game started',
     wordLength: game.getWordLength(),
