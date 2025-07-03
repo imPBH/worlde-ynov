@@ -8,9 +8,10 @@ describe('GameState', () => {
     game.startNewGame();
   });
 
-  it('starts new game with 6 attempts', () => {
-    expect(game.makeGuess('apple').attemptsLeft).toBeLessThan(6);
-  });
+it('starts new game with 6 attempts', () => {
+  game.makeGuess('apple');
+  expect(game.getAttemptsLeft()).toBeLessThan(6);
+});
 
   it('rejects invalid word', () => {
     expect(game.makeGuess('abc').error).toBe('Invalid word');

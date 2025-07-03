@@ -4,21 +4,23 @@ export class GameLogic {
   static checkGuess(guess: string, target: string): Feedback {
     const feedback: Feedback = Array(5).fill('gray');
     const targetLetters = target.split('');
-    const guessLetters = guess.split('');
 
     // Pass 1: green
-    guessLetters.forEach((char, idx) => {
-      if (char === targetLetters[idx]) {
-        feedback[idx] = 'green';
-        targetLetters[idx] = '_';
+    guess.split('').forEach((char, i) => {
+      if (char === targetLetters[i]) {
+        feedback[i] = 'green';
+        targetLetters[i] = '_'; // Marque comme utilisé
       }
     });
 
     // Pass 2: yellow
-    guessLetters.forEach((char, idx) => {
-      if (feedback[idx] !== 'green' && targetLetters.includes(char)) {
-        feedback[idx] = 'yellow';
-        targetLetters[targetLetters.indexOf(char)] = '_';
+    guess.split('').forEach((char, i) => {
+      if (feedback[i] === 'gray') {
+        const idx = targetLetters.indexOf(char);
+        if (idx !== -1) {
+          feedback[i] = 'yellow';
+          targetLetters[idx] = '_'; // Marque comme utilisé
+        }
       }
     });
 

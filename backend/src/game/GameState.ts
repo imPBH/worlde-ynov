@@ -1,18 +1,22 @@
-import { WordValidator } from './WordValidator';
-import { GameLogic } from './GameLogic';
+import { WordValidator } from "./WordValidator";
+import { GameLogic, Feedback } from "./GameLogic";
 
 export class GameState {
   private targetWord: string = '';
   private attemptsLeft = 6;
   private gameOver = false;
 
-  startNewGame() {
-    this.targetWord = 'APPLE'; // TODO: tirer un mot du dictionnaire
+  constructor(targetWord?: string) {
+    this.startNewGame(targetWord);
+  }
+
+  startNewGame(targetWord?: string) {
+    this.targetWord = (targetWord || 'APPLE').toUpperCase(); // TODO: dictionnaire
     this.attemptsLeft = 6;
     this.gameOver = false;
   }
 
-  makeGuess(word: string) {
+  makeGuess(word: string): { feedback?: Feedback; message?: string; error?: string; attemptsLeft?: number } {
     if (this.gameOver) return { error: 'Game over' };
     if (!WordValidator.validate(word)) return { error: 'Invalid word' };
 
@@ -30,5 +34,17 @@ export class GameState {
     }
 
     return { feedback, attemptsLeft: this.attemptsLeft };
+  }
+
+  getAttemptsLeft() {
+    return this.attemptsLeft;
+  }
+
+  isGameOver() {
+    return this.gameOver;
+  }
+
+  getTargetWord() {
+    return this.targetWord;
   }
 }

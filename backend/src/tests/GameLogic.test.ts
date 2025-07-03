@@ -6,6 +6,6 @@ describe('GameLogic', () => {
   });
 
   it('handles yellow and gray', () => {
-    expect(GameLogic.checkGuess('PLAZA', 'APPLE')).toEqual(['yellow','yellow','gray','gray','gray']);
+    expect(GameLogic.checkGuess('PLAZA', 'APPLE')).toEqual(['yellow','yellow','yellow','gray','gray']);
   });
 });
