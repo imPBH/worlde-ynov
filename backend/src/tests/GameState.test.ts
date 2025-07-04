@@ -68,4 +68,38 @@ describe('GameState', () => {
     const result = game.makeGuess('APPLE');
     expect(result.message).toBe('You win!');
   });
+
+  it('updates wins, streak and totalAttempts after win', () => {
+    const result = game.makeGuess('APPLE');
+    expect(game.getWins()).toBe(1);
+    expect(game.getStreak()).toBe(1);
+    expect(game.getAverageAttempts()).toBe(1);
+  });
+
+  it('updates stats after multiple wins', () => {
+    game.makeGuess('APPLE');
+    game.startNewGame('APPLE');
+    game.makeGuess('APPLE');
+    expect(game.getWins()).toBe(2);
+    expect(game.getStreak()).toBe(2);
+    expect(game.getAverageAttempts()).toBe(1);
+  });
+
+  it('resets streak after loss and updates games played', () => {
+    for (let i = 0; i < 6; i++) {
+      game.makeGuess('HOUSE');
+    }
+    expect(game.getStreak()).toBe(0);
+    expect(game.getAverageAttempts()).toBe(6);
+  });
+
+  it('updates average attempts after win and loss', () => {
+    game.makeGuess('HOUSE');
+    game.makeGuess('APPLE');
+    game.startNewGame('APPLE');
+    for (let i = 0; i < 6; i++) {
+      game.makeGuess('HOUSE');
+    }
+    expect(game.getAverageAttempts()).toBe(4);
+  });
 });

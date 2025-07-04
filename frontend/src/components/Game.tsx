@@ -6,6 +6,15 @@ const Game: React.FC = () => {
   const [guesses, setGuesses] = useState<{ word: string; feedback: string[] }[]>([]);
   const [message, setMessage] = useState<string | null>(null);
   const [attemptsLeft, setAttemptsLeft] = useState<number>(0);
+  const [stats, setStats] = useState<{ wins: number; streak: number; averageAttempts: string; gamesPlayed: number } | null>(null);
+
+  console.log(stats)
+  
+  const fetchStats = () => {
+    fetch('/stats')
+      .then(res => res.json())
+      .then(data => setStats(data));
+  };
 
   const startNewGame = () => {
     fetch('/new-game', { method: 'POST' })
@@ -16,6 +25,7 @@ const Game: React.FC = () => {
         setGuesses([]);
         setWord('');
         setAttemptsLeft(data.attemptsLeft); 
+        fetchStats();
       });
   };
 
@@ -47,6 +57,7 @@ const Game: React.FC = () => {
             setMessage(null);
           }
           setWord('');
+          fetchStats();
         }
       });
   };
@@ -120,6 +131,15 @@ const Game: React.FC = () => {
       </button>
 
       <p>Attempts left: {attemptsLeft}</p>
+
+      {stats && (
+        <div style={{ textAlign: 'left', marginTop: '10px' }}>
+          <p>✅ Wins: {stats.wins}</p>
+          <p>🔥 Streak: {stats.streak}</p>
+          <p>🎯 Average Attempts: {stats.averageAttempts}</p>
+          <p>🎮 Games Played: {stats.gamesPlayed}</p>
+        </div>
+      )}
     </div>
   );
 };

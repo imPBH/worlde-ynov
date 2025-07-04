@@ -87,4 +87,8 @@ export class GameState {
   getWordLength() {
     return this.wordLength;
   }
+
+  getGamesPlayed() {
+    return this.gamesPlayed;
+  }
 }

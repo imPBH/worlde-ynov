@@ -6,7 +6,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/new-game': 'http://localhost:3000',
-      '/guess': 'http://localhost:3000'
+      '/guess': 'http://localhost:3000',
+      '/stats': 'http://localhost:3000'
     }
   }
 });

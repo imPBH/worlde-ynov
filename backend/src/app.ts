@@ -25,4 +25,14 @@ app.post('/guess', (req, res) => {
   res.json(result);
 });
 
+app.get('/stats', (req, res) => {
+  res.json({
+    wins: game.getWins(),
+    streak: game.getStreak(),
+    averageAttempts: game.getAverageAttempts().toFixed(2),
+    gamesPlayed: game.getGamesPlayed()
+  });
+});
+
+
 export default app;
