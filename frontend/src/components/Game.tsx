@@ -9,7 +9,7 @@ const Game: React.FC = () => {
   const [stats, setStats] = useState<{ wins: number; streak: number; averageAttempts: string; gamesPlayed: number } | null>(null);
 
   console.log(stats)
-  
+
   const fetchStats = () => {
     fetch('/stats')
       .then(res => res.json())
@@ -113,7 +113,10 @@ const Game: React.FC = () => {
       <input
         type="text"
         value={word}
-        onChange={e => setWord(e.target.value.toUpperCase())}
+        onChange={e => {
+            const value = e.target.value.toUpperCase().replace(/[^A-Z]/g, '');
+            setWord(value);
+        }}
         maxLength={wordLength}
         disabled={message?.includes('win') || message?.includes('lose')}
         style={{ textTransform: 'uppercase', fontSize: '1.2em', textAlign: 'center', marginTop: '10px' }}
