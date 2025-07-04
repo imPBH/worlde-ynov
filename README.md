@@ -61,6 +61,8 @@ cd backend
 npm run test
 ```
 
+![Tests result](images/test-coverage.png)
+
 ---
 
 ## 🌟
