@@ -1,0 +1,1 @@
+export const knownPasswords = ["azerty", "1234", "zqsd"]
